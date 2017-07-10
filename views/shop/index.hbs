@@ -1,0 +1,75 @@
+
+<div class="row">
+    <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
+    <div id="success" class="alert alert-success{{#if noMessages}}hidden{{/if}}">
+        {{successMsg}}
+    </div>
+  <div class="inline"><p>Deadline: </p><p countdown>12 Jul 2017 0:00 AM</p></div>
+    <a href="#buyitnow">BuyItNow</a>
+    <a href="#auction">Auction</a>
+    
+  </div>
+</div>
+
+<div class="row" id="buyitnow">
+    <div class="col-sm-6 col-md-12 col-md-offset-0 col-sm-offset-3">
+      <h4><strong><hr border="solid 2px dimgrey">Buy It Now <img src="images/buy-now.png" width="60" >
+        <hr></strong></h4>
+    </div>
+</div>
+
+{{# each products}}
+  <div class="row">
+    {{# each this}}
+        <div class="col-sm-6 col-md-3">
+          <div class="thumbnail" href="/user/signin">
+            <a href="/product-view/{{this._id}}">
+              <img src="{{ this.imagePath }}" alt="...">
+            </a>
+            <div class="caption">
+              <hr>
+              <a href="/product-view/{{this._id}}">
+              <h4>{{ this.title }}</h4></a>
+              <p class="datetime"><font color="gray">{{ this.datetime }}, {{this.category}}</font></p>
+              <div class="clearfix">
+                <div class="price pull-left">Rs:{{ this.price }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+    {{/each}}
+  </div>
+{{/each}}
+
+<div class="row" id="auction">
+    <div class="col-sm-6 col-md-12 col-md-offset-0 col-sm-offset-3">
+      <h4><strong><hr border="solid 2px dimgrey">Auction <img src="images/auction-hammer.png" width="60"><hr></strong></h4>
+    </div>
+</div>
+
+{{# each auctionProducts}}
+  <div class="row">
+    {{# each this}}
+        <div class="col-sm-6 col-md-3">
+          <div class="thumbnail">
+            <a href="/auctionProductView/{{this._id}}"><img src="{{ this.imagePath }}" alt="..."></a>
+            <div class="caption">
+              <h4><a href="/auctionProductView/{{this._id}}">{{ this.title }}</a></h4>
+              <p class="datetime"><font color="gray">{{this.category}}</font></p>
+              <div class="clearfix">
+                <div class="price pull-left">Rs:{{ this.currentBid }}</div>
+              </div>
+              <div class="clearfix">
+                <font color="{{#unless this.ended}}#dd1e31{{/unless}}{{#if this.ended}}gray{{/if}}"><b countdown>{{this.endDate}} </b></font>
+              </div>
+              <div class="clearfix">
+                <p><font color="gray">{{this.bidders.length}} bid{{#if this.onebid}}s{{/if}}</font></p>
+              </div>
+            </div>
+          </div>
+        </div>
+    {{/each}}
+  </div>
+{{/each}}
+
+<script type="text/javascript" src="javascripts/countdown.js"></script>
